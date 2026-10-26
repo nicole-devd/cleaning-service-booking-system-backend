@@ -1,14 +1,15 @@
 {
   "info": {
-    "_postman_id": "8f7de9bb-c6b3-48d0-a2a0-7b7f9fd9e220",
-    "name": "Cleaning Service Booking System Midterm",
+    "_postman_id": "320006ef-5d1c-48a5-b107-c2a77da83832",
+    "name": "Cleaning Service Booking System",
     "description": "Part A CRUD test plan for the INSY 8322 Web Technology and Internet mid-term project. This is a starter collection; add Parts B-F requests as they are implemented. Run parent records first, copy UUIDs from GET-all responses into collection variables, create dependent cleaners and bookings, and run cleanup last. Expected statuses and response messages are described in each request.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58190309",
+    "_collection_link": "https://go.postman.co/collection/58190309-320006ef-5d1c-48a5-b107-c2a77da83832?source=collection_link"
   },
   "item": [
     {
       "name": "Part A - Service Types",
-      "description": "Test ServiceType CRUD first. Capture serviceTypeId from GET all before creating a cleaner.",
       "item": [
         {
           "name": "1. Save service type",
@@ -20,6 +21,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"House Cleaning\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/service-types/save",
               "host": [
@@ -31,17 +41,9 @@
                 "save"
               ]
             },
-            "description": "Expected: 201 Created; response body: \"Service type saved successfully\". Run this first. Then run Get all service types, copy the new record ID, and set the collection variable serviceTypeId.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"House Cleaning\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 201 Created; response body: \"Service type saved successfully\". Run this first. Then run Get all service types, copy the new record ID, and set the collection variable serviceTypeId."
+          },
+          "response": []
         },
         {
           "name": "2. Get all service types",
@@ -60,7 +62,8 @@
               ]
             },
             "description": "Expected: 200 OK and a JSON array. Copy the ID of the service type you want to use and set collection variable serviceTypeId."
-          }
+          },
+          "response": []
         },
         {
           "name": "3. Get service type by ID",
@@ -79,7 +82,8 @@
               ]
             },
             "description": "Expected: 200 OK and the selected service type. Requires serviceTypeId to be set."
-          }
+          },
+          "response": []
         },
         {
           "name": "4. Update service type",
@@ -91,6 +95,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"House Cleaning Updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/service-types/update/{{serviceTypeId}}",
               "host": [
@@ -103,23 +116,15 @@
                 "{{serviceTypeId}}"
               ]
             },
-            "description": "Expected: 200 OK; response body: \"Service type updated successfully\". Requires serviceTypeId to be set.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"House Cleaning Updated\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 200 OK; response body: \"Service type updated successfully\". Requires serviceTypeId to be set."
+          },
+          "response": []
         }
-      ]
+      ],
+      "description": "Test ServiceType CRUD first. Capture serviceTypeId from GET all before creating a cleaner."
     },
     {
       "name": "Part A - Zones",
-      "description": "Test Zone CRUD. Capture zoneId before creating a cleaner.",
       "item": [
         {
           "name": "1. Save zone",
@@ -131,6 +136,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zoneNumber\": 1,\n  \"name\": \"Kigali Central\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/zones/save",
               "host": [
@@ -142,17 +156,9 @@
                 "save"
               ]
             },
-            "description": "Expected: 201 Created; response body: \"Zone saved successfully\". Then run Get all zones and set collection variable zoneId to the created zone ID.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"zoneNumber\": 1,\n  \"name\": \"Kigali Central\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 201 Created; response body: \"Zone saved successfully\". Then run Get all zones and set collection variable zoneId to the created zone ID."
+          },
+          "response": []
         },
         {
           "name": "2. Get all zones",
@@ -171,7 +177,8 @@
               ]
             },
             "description": "Expected: 200 OK and a JSON array. Copy one zone ID and set collection variable zoneId."
-          }
+          },
+          "response": []
         },
         {
           "name": "3. Get zone by ID",
@@ -190,7 +197,8 @@
               ]
             },
             "description": "Expected: 200 OK and the selected zone. Requires zoneId to be set."
-          }
+          },
+          "response": []
         },
         {
           "name": "4. Update zone",
@@ -202,6 +210,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zoneNumber\": 1,\n  \"name\": \"Kigali Central Updated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/zones/update/{{zoneId}}",
               "host": [
@@ -214,23 +231,15 @@
                 "{{zoneId}}"
               ]
             },
-            "description": "Expected: 200 OK; response body: \"Zone updated successfully\". Requires zoneId to be set.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"zoneNumber\": 1,\n  \"name\": \"Kigali Central Updated\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 200 OK; response body: \"Zone updated successfully\". Requires zoneId to be set."
+          },
+          "response": []
         }
-      ]
+      ],
+      "description": "Test Zone CRUD. Capture zoneId before creating a cleaner."
     },
     {
       "name": "Part A - Customers",
-      "description": "Test Customer CRUD. Capture customerId before creating a booking.",
       "item": [
         {
           "name": "1. Save customer",
@@ -242,6 +251,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Aline\",\n  \"lastName\": \"Murenzi\",\n  \"phone\": \"0788001122\",\n  \"email\": \"aline.murenzi@example.com\",\n  \"address\": \"Kigali, Rwanda\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/customers/save",
               "host": [
@@ -253,17 +271,9 @@
                 "save"
               ]
             },
-            "description": "Expected: 201 Created; response body: \"Customer saved successfully\". Then run Get all customers and set collection variable customerId to the created customer ID.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"firstName\": \"Aline\",\n  \"lastName\": \"Murenzi\",\n  \"phone\": \"0788001122\",\n  \"email\": \"aline.murenzi@example.com\",\n  \"address\": \"Kigali, Rwanda\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 201 Created; response body: \"Customer saved successfully\". Then run Get all customers and set collection variable customerId to the created customer ID."
+          },
+          "response": []
         },
         {
           "name": "2. Get all customers",
@@ -282,7 +292,8 @@
               ]
             },
             "description": "Expected: 200 OK and a JSON array. Copy the customer ID and set collection variable customerId."
-          }
+          },
+          "response": []
         },
         {
           "name": "3. Get customer by ID",
@@ -301,7 +312,8 @@
               ]
             },
             "description": "Expected: 200 OK and the selected customer. Requires customerId to be set."
-          }
+          },
+          "response": []
         },
         {
           "name": "4. Update customer",
@@ -313,6 +325,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Aline\",\n  \"lastName\": \"Murenzi\",\n  \"phone\": \"0788001122\",\n  \"email\": \"aline.updated@example.com\",\n  \"address\": \"Kigali, Rwanda\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/customers/update/{{customerId}}",
               "host": [
@@ -325,23 +346,15 @@
                 "{{customerId}}"
               ]
             },
-            "description": "Expected: 200 OK; response body: \"Customer updated successfully\". Keep the phone unique.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"firstName\": \"Aline\",\n  \"lastName\": \"Murenzi\",\n  \"phone\": \"0788001122\",\n  \"email\": \"aline.updated@example.com\",\n  \"address\": \"Kigali, Rwanda\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 200 OK; response body: \"Customer updated successfully\". Keep the phone unique."
+          },
+          "response": []
         }
-      ]
+      ],
+      "description": "Test Customer CRUD. Capture customerId before creating a booking."
     },
     {
       "name": "Part A - Cleaners",
-      "description": "Requires serviceTypeId and zoneId. Capture cleanerId before creating a booking.",
       "item": [
         {
           "name": "1. Save cleaner",
@@ -353,6 +366,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788112233\",\n  \"zone\": {\n    \"id\": \"{{zoneId}}\"\n  },\n  \"serviceTypes\": [\n    {\n      \"id\": \"{{serviceTypeId}}\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/cleaners/save",
               "host": [
@@ -364,17 +386,9 @@
                 "save"
               ]
             },
-            "description": "Expected: 201 Created; response body: \"Cleaner saved successfully\". Requires zoneId and serviceTypeId to be set from the parent folders. Run Get all cleaners and then set cleanerId.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788112233\",\n  \"zone\": {\n    \"id\": \"{{zoneId}}\"\n  },\n  \"serviceTypes\": [\n    {\n      \"id\": \"{{serviceTypeId}}\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 201 Created; response body: \"Cleaner saved successfully\". Requires zoneId and serviceTypeId to be set from the parent folders. Run Get all cleaners and then set cleanerId."
+          },
+          "response": []
         },
         {
           "name": "2. Get all cleaners",
@@ -393,7 +407,8 @@
               ]
             },
             "description": "Expected: 200 OK and a JSON array. Copy the cleaner ID and set collection variable cleanerId."
-          }
+          },
+          "response": []
         },
         {
           "name": "3. Get cleaner by ID",
@@ -412,7 +427,8 @@
               ]
             },
             "description": "Expected: 200 OK and the selected cleaner. Requires cleanerId to be set."
-          }
+          },
+          "response": []
         },
         {
           "name": "4. Update cleaner",
@@ -424,6 +440,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788112233\",\n  \"zone\": {\n    \"id\": \"{{zoneId}}\"\n  },\n  \"serviceTypes\": [\n    {\n      \"id\": \"{{serviceTypeId}}\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/cleaners/update/{{cleanerId}}",
               "host": [
@@ -436,23 +461,15 @@
                 "{{cleanerId}}"
               ]
             },
-            "description": "Expected: 200 OK; response body: \"Cleaner updated successfully\". Requires zoneId and serviceTypeId to be set.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0788112233\",\n  \"zone\": {\n    \"id\": \"{{zoneId}}\"\n  },\n  \"serviceTypes\": [\n    {\n      \"id\": \"{{serviceTypeId}}\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 200 OK; response body: \"Cleaner updated successfully\". Requires zoneId and serviceTypeId to be set."
+          },
+          "response": []
         }
-      ]
+      ],
+      "description": "Requires serviceTypeId and zoneId. Capture cleanerId before creating a booking."
     },
     {
       "name": "Part A - Bookings",
-      "description": "Requires customerId and cleanerId. Use a future service date.",
       "item": [
         {
           "name": "1. Save booking",
@@ -464,28 +481,31 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "\n\n\n\n{\n  \"serviceDate\": \"2026-11-05\",\n  \"status\": \"REQUESTED\",\n  \"address\": \"Kigali, Rwanda\",\n  \"rooms\": 3,\n  \"customer\": {\n    \"id\": \"9a066ba2-d9fa-4746-b95b-38971b0d14e8\"\n  },\n  \"cleaner\": {\n    \"id\": \"0000a2fd-146f-43e8-9eb4-eab36f222652\"\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": "{{baseUrl}}/api/bookings/save",
+              "raw": "http://localhost:8080/api/bookings/save",
+              "protocol": "http",
               "host": [
-                "{{baseUrl}}"
+                "localhost"
               ],
+              "port": "8080",
               "path": [
                 "api",
                 "bookings",
                 "save"
               ]
             },
-            "description": "Expected: 201 Created; response body: \"Booking saved successfully\". Requires customerId and cleanerId to be set. Use a future serviceDate. Then run Get all bookings and set bookingId.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"serviceDate\": \"2026-11-15\",\n  \"status\": \"REQUESTED\",\n  \"address\": \"Kigali, Rwanda\",\n  \"rooms\": 3,\n  \"customer\": {\n    \"id\": \"{{customerId}}\"\n  },\n  \"cleaner\": {\n    \"id\": \"{{cleanerId}}\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 201 Created; response body: \"Booking saved successfully\". Requires customerId and cleanerId to be set. Use a future serviceDate. Then run Get all bookings and set bookingId."
+          },
+          "response": []
         },
         {
           "name": "2. Get all bookings",
@@ -504,7 +524,8 @@
               ]
             },
             "description": "Expected: 200 OK and a JSON array. Copy the booking ID and set collection variable bookingId."
-          }
+          },
+          "response": []
         },
         {
           "name": "3. Get booking by ID",
@@ -523,7 +544,8 @@
               ]
             },
             "description": "Expected: 200 OK and the selected booking. Requires bookingId to be set."
-          }
+          },
+          "response": []
         },
         {
           "name": "4. Update booking",
@@ -535,6 +557,15 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceDate\": \"2026-11-16\",\n  \"status\": \"REQUESTED\",\n  \"address\": \"Kigali, Rwanda\",\n  \"rooms\": 4,\n  \"customer\": {\n    \"id\": \"{{customerId}}\"\n  },\n  \"cleaner\": {\n    \"id\": \"{{cleanerId}}\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
               "raw": "{{baseUrl}}/api/bookings/update/{{bookingId}}",
               "host": [
@@ -547,23 +578,15 @@
                 "{{bookingId}}"
               ]
             },
-            "description": "Expected: 200 OK; response body: \"Booking updated successfully\". General PUT update must not change the booking status.",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"serviceDate\": \"2026-11-16\",\n  \"status\": \"REQUESTED\",\n  \"address\": \"Kigali, Rwanda\",\n  \"rooms\": 4,\n  \"customer\": {\n    \"id\": \"{{customerId}}\"\n  },\n  \"cleaner\": {\n    \"id\": \"{{cleanerId}}\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          }
+            "description": "Expected: 200 OK; response body: \"Booking updated successfully\". General PUT update must not change the booking status."
+          },
+          "response": []
         }
-      ]
+      ],
+      "description": "Requires customerId and cleanerId. Use a future service date."
     },
     {
       "name": "Part A - Missing-ID Error Tests",
-      "description": "Run before cleanup. Each request should return 404 Not Found.",
       "item": [
         {
           "name": "Get missing service type",
@@ -582,7 +605,8 @@
               ]
             },
             "description": "Expected: 404 Not Found and the corresponding required \"does not exist\" message. Uses unknownId, a valid UUID that should not exist in the database."
-          }
+          },
+          "response": []
         },
         {
           "name": "Get missing zone",
@@ -601,7 +625,8 @@
               ]
             },
             "description": "Expected: 404 Not Found and the corresponding required \"does not exist\" message. Uses unknownId, a valid UUID that should not exist in the database."
-          }
+          },
+          "response": []
         },
         {
           "name": "Get missing cleaner",
@@ -620,7 +645,8 @@
               ]
             },
             "description": "Expected: 404 Not Found and the corresponding required \"does not exist\" message. Uses unknownId, a valid UUID that should not exist in the database."
-          }
+          },
+          "response": []
         },
         {
           "name": "Get missing customer",
@@ -639,7 +665,8 @@
               ]
             },
             "description": "Expected: 404 Not Found and the corresponding required \"does not exist\" message. Uses unknownId, a valid UUID that should not exist in the database."
-          }
+          },
+          "response": []
         },
         {
           "name": "Get missing booking",
@@ -658,13 +685,14 @@
               ]
             },
             "description": "Expected: 404 Not Found and the corresponding required \"does not exist\" message. Uses unknownId, a valid UUID that should not exist in the database."
-          }
+          },
+          "response": []
         }
-      ]
+      ],
+      "description": "Run before cleanup. Each request should return 404 Not Found."
     },
     {
       "name": "Part A - Cleanup (run last)",
-      "description": "Run only after you have completed the tests. Follow the order to delete dependent records before their parents.",
       "item": [
         {
           "name": "1. Delete booking",
@@ -684,7 +712,8 @@
               ]
             },
             "description": "Expected: 200 OK; response body: \"Booking deleted successfully\". Delete dependent bookings before cleaner, customer, service type, or zone records."
-          }
+          },
+          "response": []
         },
         {
           "name": "2. Delete cleaner",
@@ -704,7 +733,8 @@
               ]
             },
             "description": "Expected: 200 OK; response body: \"Cleaner deleted successfully\". Delete the booking first."
-          }
+          },
+          "response": []
         },
         {
           "name": "3. Delete customer",
@@ -724,7 +754,8 @@
               ]
             },
             "description": "Expected: 200 OK; response body: \"Customer deleted successfully\". Delete the booking first."
-          }
+          },
+          "response": []
         },
         {
           "name": "4. Delete service type",
@@ -744,7 +775,8 @@
               ]
             },
             "description": "Expected: 200 OK; response body: \"Service type deleted successfully\". Delete the cleaner first."
-          }
+          },
+          "response": []
         },
         {
           "name": "5. Delete zone",
@@ -764,7 +796,47 @@
               ]
             },
             "description": "Expected: 200 OK; response body: \"Zone deleted successfully\". Delete the cleaner first."
-          }
+          },
+          "response": []
+        }
+      ],
+      "description": "Run only after you have completed the tests. Follow the order to delete dependent records before their parents."
+    },
+    {
+      "name": "Part B – Derived Queries",
+      "item": [
+        {
+          "name": "B1 - Find customers by last name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B2 - Find bookings by status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B3 - Bookings in a  date range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
         }
       ]
     }
@@ -772,38 +844,31 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8080",
-      "type": "string"
+      "value": "http://localhost:8080"
     },
     {
       "key": "serviceTypeId",
-      "value": "",
-      "type": "string"
+      "value": ""
     },
     {
       "key": "zoneId",
-      "value": "",
-      "type": "string"
+      "value": ""
     },
     {
       "key": "customerId",
-      "value": "",
-      "type": "string"
+      "value": ""
     },
     {
       "key": "cleanerId",
-      "value": "",
-      "type": "string"
+      "value": ""
     },
     {
       "key": "bookingId",
-      "value": "",
-      "type": "string"
+      "value": ""
     },
     {
       "key": "unknownId",
-      "value": "00000000-0000-0000-0000-000000000000",
-      "type": "string"
+      "value": "00000000-0000-0000-0000-000000000000"
     }
   ]
 }

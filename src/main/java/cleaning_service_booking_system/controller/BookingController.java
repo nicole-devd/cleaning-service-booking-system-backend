@@ -2,7 +2,9 @@
 package cleaning_service_booking_system.controller;
 
 import cleaning_service_booking_system.model.Booking;
+import cleaning_service_booking_system.model.BookingStatus;
 import cleaning_service_booking_system.service.BookingService;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,6 +39,24 @@ public class BookingController {
     @GetMapping("/all")
     public ResponseEntity<List<Booking>> findAll() {
         return ResponseEntity.ok(bookingService.findAll());
+    }
+
+    @GetMapping("/by-status")
+    public ResponseEntity<List<Booking>> findByStatus(
+            @RequestParam BookingStatus status) {
+        return ResponseEntity.ok(bookingService.findByStatus(status));
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<List<Booking>> findBetweenDates(
+            @RequestParam String start,
+            @RequestParam String end) {
+
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+
+        return ResponseEntity.ok(
+                bookingService.findBetweenDates(startDate, endDate));
     }
 
     @GetMapping("/{id}")

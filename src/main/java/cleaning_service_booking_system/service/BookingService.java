@@ -2,7 +2,9 @@
 package cleaning_service_booking_system.service;
 
 import cleaning_service_booking_system.model.Booking;
+import cleaning_service_booking_system.model.BookingStatus;
 import cleaning_service_booking_system.repository.BookingRepository;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,5 +57,14 @@ public class BookingService {
 
         bookingRepository.deleteById(id);
         return "Booking deleted successfully";
+    }
+
+    public List<Booking> findByStatus(BookingStatus status) {
+        return bookingRepository.findByStatusOrderByServiceDateAsc(status);
+    }
+
+    public List<Booking> findBetweenDates(LocalDate start, LocalDate end) {
+        return bookingRepository.findByServiceDateBetweenOrderByServiceDateAsc(
+                start, end);
     }
 }
