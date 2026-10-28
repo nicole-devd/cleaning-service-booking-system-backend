@@ -56,4 +56,8 @@ public class CleanerService {
         cleanerRepository.deleteById(id);
         return "Cleaner deleted successfully";
     }
+
+    public List<Cleaner> findByServiceTypeName(String name) {
+        return cleanerRepository.findByServiceTypeName(name);
+    }
 }

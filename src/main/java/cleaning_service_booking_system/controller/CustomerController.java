@@ -1,6 +1,7 @@
 
 package cleaning_service_booking_system.controller;
 
+import cleaning_service_booking_system.model.Cleaner;
 import cleaning_service_booking_system.model.Customer;
 import cleaning_service_booking_system.service.CustomerService;
 import java.util.List;
@@ -43,6 +44,20 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> findByLastName(
             @RequestParam String lastName) {
         return ResponseEntity.ok(customerService.findByLastName(lastName));
+    }
+
+    @GetMapping("/of-cleaner/{cleanerId}")
+    public ResponseEntity<?> findCustomersOfCleaner(
+            @PathVariable UUID cleanerId) {
+
+        Optional<Cleaner> cleaner = customerService.findCleanerById(cleanerId);
+
+        if (cleaner.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("The cleaner with that id does not exist");
+        }
+
+        return ResponseEntity.ok(customerService.findCustomersOfCleaner(cleanerId));
     }
 
     @GetMapping("/{id}")

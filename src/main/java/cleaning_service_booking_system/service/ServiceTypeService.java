@@ -31,7 +31,8 @@ public class ServiceTypeService {
     }
 
     public String update(UUID id, ServiceType serviceType) {
-        Optional<ServiceType> existingServiceType = serviceTypeRepository.findById(id);
+        Optional<ServiceType> existingServiceType =
+                serviceTypeRepository.findById(id);
 
         if (existingServiceType.isEmpty()) {
             return "The service type with that id does not exist";
@@ -51,5 +52,9 @@ public class ServiceTypeService {
 
         serviceTypeRepository.deleteById(id);
         return "Service type deleted successfully";
+    }
+
+    public List<ServiceType> findUnusedServiceTypes() {
+        return serviceTypeRepository.findUnusedServiceTypes();
     }
 }

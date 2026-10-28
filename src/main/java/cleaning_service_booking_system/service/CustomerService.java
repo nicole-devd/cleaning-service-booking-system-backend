@@ -1,7 +1,9 @@
 
 package cleaning_service_booking_system.service;
 
+import cleaning_service_booking_system.model.Cleaner;
 import cleaning_service_booking_system.model.Customer;
+import cleaning_service_booking_system.repository.CleanerRepository;
 import cleaning_service_booking_system.repository.CustomerRepository;
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +14,13 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CleanerRepository cleanerRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(
+            CustomerRepository customerRepository,
+            CleanerRepository cleanerRepository) {
         this.customerRepository = customerRepository;
+        this.cleanerRepository = cleanerRepository;
     }
 
     public String save(Customer customer) {
@@ -59,5 +65,13 @@ public class CustomerService {
 
     public List<Customer> findByLastName(String lastName) {
         return customerRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
+    public Optional<Cleaner> findCleanerById(UUID cleanerId) {
+        return cleanerRepository.findById(cleanerId);
+    }
+
+    public List<Customer> findCustomersOfCleaner(UUID cleanerId) {
+        return customerRepository.findCustomersOfCleaner(cleanerId);
     }
 }

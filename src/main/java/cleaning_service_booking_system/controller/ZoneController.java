@@ -38,6 +38,11 @@ public class ZoneController {
         return ResponseEntity.ok(zoneService.findAll());
     }
 
+    @GetMapping("/free")
+    public ResponseEntity<List<Zone>> findFreeZones() {
+        return ResponseEntity.ok(zoneService.findFreeZones());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable UUID id) {
         Optional<Zone> zone = zoneService.findById(id);
