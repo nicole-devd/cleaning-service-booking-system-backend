@@ -3,6 +3,7 @@ package cleaning_service_booking_system.repository;
 
 import cleaning_service_booking_system.model.Booking;
 import cleaning_service_booking_system.model.BookingStatus;
+import cleaning_service_booking_system.model.Cleaner;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -14,4 +15,7 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     List<Booking> findByServiceDateBetweenOrderByServiceDateAsc(
             LocalDate start, LocalDate end);
+
+    boolean existsByCleanerAndServiceDateAndStatusNot(
+            Cleaner cleaner, LocalDate serviceDate, BookingStatus status);
 }

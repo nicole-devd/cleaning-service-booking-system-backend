@@ -20,6 +20,19 @@ public class BookingService {
     }
 
     public String save(Booking booking) {
+        if (booking.getServiceDate().isBefore(LocalDate.now())) {
+            return "Booking date cannot be in the past";
+        }
+
+        if (booking.getCleaner() != null
+                && bookingRepository.existsByCleanerAndServiceDateAndStatusNot(
+                        booking.getCleaner(),
+                        booking.getServiceDate(),
+                        BookingStatus.CANCELLED)) {
+            return "Cleaner already has a booking on that date";
+        }
+
+        booking.setStatus(BookingStatus.REQUESTED);
         bookingRepository.save(booking);
         return "Booking saved successfully";
     }
@@ -48,6 +61,37 @@ public class BookingService {
 
         bookingRepository.save(currentBooking);
         return "Booking updated successfully";
+    }
+
+    public String changeStatus(UUID id, BookingStatus newStatus) {
+        Optional<Booking> existingBooking = bookingRepository.findById(id);
+
+        if (existingBooking.isEmpty()) {
+            return "The booking with that id does not exist";
+        }
+
+        Booking booking = existingBooking.get();
+        BookingStatus currentStatus = booking.getStatus();
+
+        boolean allowed = false;
+
+        if (currentStatus == BookingStatus.REQUESTED
+                && (newStatus == BookingStatus.ASSIGNED
+                || newStatus == BookingStatus.CANCELLED)) {
+            allowed = true;
+        } else if (currentStatus == BookingStatus.ASSIGNED
+                && (newStatus == BookingStatus.CLEANED
+                || newStatus == BookingStatus.CANCELLED)) {
+            allowed = true;
+        }
+
+        if (!allowed) {
+            return "Cannot change status from " + currentStatus + " to " + newStatus;
+        }
+
+        booking.setStatus(newStatus);
+        bookingRepository.save(booking);
+        return "Booking status updated successfully";
     }
 
     public String delete(UUID id) {

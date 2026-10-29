@@ -2,6 +2,7 @@
 package cleaning_service_booking_system.repository;
 
 import cleaning_service_booking_system.model.Cleaner;
+import cleaning_service_booking_system.model.Zone;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,6 @@ public interface CleanerRepository extends JpaRepository<Cleaner, UUID> {
 
     @Query("SELECT DISTINCT c FROM Cleaner c JOIN c.serviceTypes st WHERE LOWER(st.name) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<Cleaner> findByServiceTypeName(@Param("name") String name);
+
+    boolean existsByZone(Zone zone);
 }

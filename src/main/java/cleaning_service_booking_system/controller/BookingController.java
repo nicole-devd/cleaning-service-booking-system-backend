@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,8 +33,15 @@ public class BookingController {
 
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody Booking booking) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(bookingService.save(booking));
+        String result = bookingService.save(booking);
+
+        if (result.equals("Booking date cannot be in the past")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+        } else if (result.equals("Cleaner already has a booking on that date")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(result);
+        } else {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }
     }
 
     @GetMapping("/all")
@@ -80,6 +88,22 @@ public class BookingController {
 
         if (result.equals("The booking with that id does not exist")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+        } else {
+            return ResponseEntity.ok(result);
+        }
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<String> changeStatus(
+            @PathVariable UUID id,
+            @RequestParam BookingStatus status) {
+
+        String result = bookingService.changeStatus(id, status);
+
+        if (result.equals("The booking with that id does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+        } else if (result.startsWith("Cannot change status from")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
         } else {
             return ResponseEntity.ok(result);
         }
